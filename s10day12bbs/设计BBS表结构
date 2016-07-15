@@ -1,0 +1,104 @@
+一、设计BBS表结构
+在models页写各种表和关联
+在admin注册各种表，使后台可以管理数据库的数据
+
+python manage.py makemigrations 向数据库同步数据
+python manage.py migrate    创建各种表
+
+python manage.py createsuperuser    #创建admin管理员
+
+
+二、在前端展示文章列表
+在index主页写前端的展示，构思好划分的div并加添css
+同{{ article}}的方式，从数据库中取出前端展示的信息
+
+
+
+
+
+
+                    {% for article in articles %}
+                     <div class="blog-box row">
+                        <div class="head-img col-md-4">
+                            <img  src="/static/imgs/test.jpg">
+                        </div>
+                        <div class="blog-summary-box col-md-8">
+
+                                <h3> {{ article.title }} </h3>
+                                <div class="blog-summary-btn">
+                                    {{ article.author.name }}
+                                </div>
+                                <div class="blog-summary">
+                                    {{ article.summary }}
+                                </div>
+
+                        </div>
+
+                     </div>
+                     {% endfor %}
+
+三、前端文章内容详细
+创建article.html，并在views.py和urls.py上做关联
+
+四、前端创建文章并提交
+    1、创建create_article.html,引用外部的tinymce.min.js，实现前端创建文章
+    2、添加表单，使页面更加好看
+
+
+
+
+>>>python manage.py shell
+>>>from bbs import models
+>>> models.Article.objects.first()
+<Article: test1>
+>>> a = models.Article.objects.first()
+>>> a.comment_set.select_related()
+[<Comment: A1>, <Comment: A2>, <Comment: A2-2>, <Comment: A2-2-1>, <Comment: A3>, <Comment: A4>, <Comment: A4-2>, <Comment: A4-2-1>, <Comment: A3-2>, <Comment: B>, <Com
+ment: B2>, <Comment: B3>, <Comment: B2-2>, <Comment: C>]
+>>> a.comment_set.select_related().count()
+14
+>>> a.comment_set.select_related().values()
+[{'comment': u'A1', u'user_id': 1, 'data': datetime.datetime(2016, 3, 25, 10, 5, 3, 863000, tzinfo=<UTC>), u'parent_comment_id': None, u'article_id': 6, u'id': 2}, {'co
+mment': u'A2', u'user_id': 1, 'data': datetime.datetime(2016, 3, 25, 10, 5, 14, 524000, tzinfo=<UTC>), u'parent_comment_id': 2, u'article_id': 6, u'id': 3}, {'comment':
+ u'A2-2', u'user_id': 1, 'data': datetime.datetime(2016, 3, 25, 10, 5, 38, 354000, tzinfo=<UTC>), u'parent_comment_id': 3, u'article_id': 6, u'id': 4}, {'comment': u'A2
+-2-1', u'user_id': 1, 'data': datetime.datetime(2016, 3, 25, 10, 6, 0, 899000, tzinfo=<UTC>), u'parent_comment_id': 4, u'article_id': 6, u'id': 5}, {'comment': u'A3', u
+'user_id': 1, 'data': datetime.datetime(2016, 3, 25, 10, 6, 30, 314000, tzinfo=<UTC>), u'parent_comment_id': 3, u'article_id': 6, u'id': 6}, {'comment': u'A4', u'user_i
+d': 1, 'data': datetime.datetime(2016, 3, 25, 10, 6, 48, 612000, tzinfo=<UTC>), u'parent_comment_id': 6, u'article_id': 6, u'id': 7}, {'comment': u'A4-2', u'user_id': 1
+, 'data': datetime.datetime(2016, 3, 25, 10, 7, 10, 567000, tzinfo=<UTC>), u'parent_comment_id': 6, u'article_id': 6, u'id': 8}, {'comment': u'A4-2-1', u'user_id': 1, '
+data': datetime.datetime(2016, 3, 25, 10, 8, 2, 878000, tzinfo=<UTC>), u'parent_comment_id': 8, u'article_id': 6, u'id': 9}, {'comment': u'A3-2', u'user_id': 1, 'data':
+ datetime.datetime(2016, 3, 25, 10, 8, 29, 338000, tzinfo=<UTC>), u'parent_comment_id': 4, u'article_id': 6, u'id': 10}, {'comment': u'B', u'user_id': 1, 'data': dateti
+me.datetime(2016, 3, 25, 10, 8, 49, 456000, tzinfo=<UTC>), u'parent_comment_id': None, u'article_id': 6, u'id': 11}, {'comment': u'B2', u'user_id': 1, 'data': datetime.
+datetime(2016, 3, 25, 10, 9, 9, 522000, tzinfo=<UTC>), u'parent_comment_id': 11, u'article_id': 6, u'id': 12}, {'comment': u'B3', u'user_id': 1, 'data': datetime.dateti
+me(2016, 3, 25, 10, 9, 24, 78000, tzinfo=<UTC>), u'parent_comment_id': 12, u'article_id': 6, u'id': 13}, {'comment': u'B2-2', u'user_id': 1, 'data': datetime.datetime(2
+016, 3, 25, 10, 9, 35, 390000, tzinfo=<UTC>), u'parent_comment_id': 11, u'article_id': 6, u'id': 14}, {'comment': u'C', u'user_id': 1, 'data': datetime.datetime(2016, 3
+, 25, 10, 9, 50, 529000, tzinfo=<UTC>), u'parent_comment_id': None, u'article_id': 6, u'id': 15}]
+>>> a.comment_set.select_related().values("comment","parent_comment")
+[{'comment': u'A1', 'parent_comment': None}, {'comment': u'A2', 'parent_comment': 2}, {'comment': u'A2-2', 'parent_comment': 3}, {'comment': u'A2-2-1', 'parent_comment'
+: 4}, {'comment': u'A3', 'parent_comment': 3}, {'comment': u'A4', 'parent_comment': 6}, {'comment': u'A4-2', 'parent_comment': 6}, {'comment': u'A4-2-1', 'parent_commen
+t': 8}, {'comment': u'A3-2', 'parent_comment': 4}, {'comment': u'B', 'parent_comment': None}, {'comment': u'B2', 'parent_comment': 11}, {'comment': u'B3', 'parent_comme
+nt': 12}, {'comment': u'B2-2', 'parent_comment': 11}, {'comment': u'C', 'parent_comment': None}]
+>>> a.comment_set.select_related().values("comment","parent_comment_id")
+[{'comment': u'A1', 'parent_comment_id': None}, {'comment': u'A2', 'parent_comment_id': 2}, {'comment': u'A2-2', 'parent_comment_id': 3}, {'comment': u'A2-2-1', 'parent
+_comment_id': 4}, {'comment': u'A3', 'parent_comment_id': 3}, {'comment': u'A4', 'parent_comment_id': 6}, {'comment': u'A4-2', 'parent_comment_id': 6}, {'comment': u'A4
+-2-1', 'parent_comment_id': 8}, {'comment': u'A3-2', 'parent_comment_id': 4}, {'comment': u'B', 'parent_comment_id': None}, {'comment': u'B2', 'parent_comment_id': 11},
+ {'comment': u'B3', 'parent_comment_id': 12}, {'comment': u'B2-2', 'parent_comment_id': 11}, {'comment': u'C', 'parent_comment_id': None}]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

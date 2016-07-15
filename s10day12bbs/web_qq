@@ -1,0 +1,49 @@
+03 WebQQ设计表结构
+python manage.py startapp webqq
+
+
+setting下
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME' : 's10day12',
+        'USER' : 'root',
+        'PASSWORD' : '',
+        'HOST' : 'localhost'
+
+    }
+}
+INSTALLED_APPS下
+添加'webqq'
+
+
+
+
+mysql -uroot -p
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+04 WebQQ前端页面设计
+
+05 webQQ前端页面设计2
+
+
+06 webQQ实现消息前端页面的发送效果
+
+07 webQQ聊天消息发送到后台
+网页发送的方式是get，
+post模式需要结合csrf的token值
+
+js不识别字典，需要json序列化后再传到数据库，数据库取出时要反序列化
+
+08 webQQ后台处理并转发聊天消息
+
+09 WebQQ前端到后台获取新消息
+10 WebQQ将从后台获取到的聊天消息展示到前端
+11 WebQQ实现不同聊天会话之间的动态切换
+12 WebQQ优化前端聊天窗口展示效果
+13 WebQQ如何实现群组聊天
+
+ajax 是post、get  异步的

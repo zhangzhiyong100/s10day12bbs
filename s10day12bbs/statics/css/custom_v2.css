@@ -1,0 +1,96 @@
+body{
+    background-color:#fff;
+    color: #333;
+    font-family: Arial,"Microsoft yahei","Hiragino Sans GB","冬青黑体简体中文 w3","Microsoft Yahei","Hiragino Sans GB","冬青黑体简体中文 w3",STXihei,"华文细黑","微软雅黑",SimSun,"宋体",Heiti,"黑体",sans-serif;
+}
+
+
+.head-img img{
+    height:125px;
+    width: 220px;
+}
+.blog-box{
+    border-bottom: 2px dashed darkgoldenrod ;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+
+}
+
+.blog-summary-btn{
+    margin-top:10px;
+    margin-bottom:10px;
+
+}
+
+.blog-summary-btn span{
+    margin-left:20px;
+
+}
+.blog-summary-btn span:hover{
+    color:red;
+}
+
+.blog-summary-btn,.blog-summary{
+    opacity: 0.7;
+}
+
+.comment-content,.comment-date{
+    margin-left:20px;
+    opacity: 0.7;
+
+}
+
+.chat-box{
+    height: 500px;
+    border: 1px solid greenyellow;
+
+
+}
+
+.contact-list{
+    height: 100%;
+    border: 1px solid crimson;
+    margin-bottom: 25px;
+}
+
+.contact-list-head{
+    margin-top: 10px;
+    margin-bottom: 25px;
+
+
+}
+
+
+
+.dialog-box{
+    height: 100%;
+    border: 1px solid purple;
+    margin-bottom: 0px;
+    margin-left:25%;
+    padding:10px;
+}
+
+.dialog-box-head{
+    height: 10%;
+    background-color: #afd9ee;
+}
+
+.dialog-box-content{
+    height: 70%;
+    background-color: lightpink;
+    overflow: auto;
+
+}
+
+.dialog-box-utils{
+    height: 5%;
+    background-color: lightgray;
+}
+
+.dialog-box-sendmsg textarea{
+    height: 100%;
+    width:100%;
+    resize: none;
+
+}
+#resize 禁止下拉
